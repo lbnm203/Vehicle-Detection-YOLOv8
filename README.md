@@ -25,6 +25,8 @@ The project uses the Indian Vehicle Dataset collected by DataCluster Labs, conta
 - Two-wheelers
 - Trucks
 
+---
+
 - **Default**: [Indian Vehicle Dataset](https://www.kaggle.com/datasets/dataclusterlabs/indian-vehicle-dataset) (>50,000 images, 8 classes: Auto, Bicycle, Bus, Car, Tempo, Tractor, Two-wheelers, Trucks)
 - **Custom**: You can use your own dataset in YOLO format.
 - **Note**: The original dataset is in `.xml` format. Use the provided script to convert to YOLO format (see below).
