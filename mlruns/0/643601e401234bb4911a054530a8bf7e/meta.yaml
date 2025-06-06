@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/reg1/Study/InternGraduateAI/YOLOv8-Vehicle-Detection/mlruns/0/643601e401234bb4911a054530a8bf7e/artifacts
+end_time: 1748544963052
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 643601e401234bb4911a054530a8bf7e
+run_name: YOLOv8s_100e_16b_20250529_192027
+run_uuid: 643601e401234bb4911a054530a8bf7e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748521227469
+status: 3
+tags: []
+user_id: Admin

@@ -1,0 +1,18 @@
+# Core dependencies with minimum versions for critical packages
+numpy
+opencv-python
+Pillow
+matplotlib
+PyYAML
+tqdm
+scikit-learn
+ultralytics>=8.0.0  # Critical for YOLOv8 functionality
+streamlit
+mlflow
+pandas
+seaborn
+moviepy
+pytest
+plotly>=5.0.0
+datasets
+gdown
