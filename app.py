@@ -4,6 +4,7 @@ import os
 from src.data_t import *
 from src.demo_t import *
 from src.mlflow_t import *
+from src.train_t import *
 
 st.set_page_config(
     page_title="YOLOv8 Vehicle Detection",
@@ -42,14 +43,14 @@ def main():
     data_tab, demo_tab, mlflow_tab = st.tabs(
         ["Data", "Demo", "MLflow"]
     )
+    # data_tab, demo_tab, mlflow_tab, train_tab = st.tabs(
+    #     ["Data", "Demo", "MLflow", "Train"]
+    # )
 
     with data_tab:
         # Check dataset availability
         check_dataset_availability()
         data_description()
-
-    # with theory_tab:
-    #     yolov8_theory()
 
     # with train_tab:
     #     train_model()

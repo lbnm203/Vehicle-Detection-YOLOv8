@@ -1,19 +1,19 @@
-# YOLOv8 Vehicle Detection (**It's not final version !!!**)
+# YOLOv8 Vehicle Detection
 
-A comprehensive application for vehicle detection using YOLOv8, featuring dataset exploration, model training, and real-time detection with a Streamlit interface.
+A user-friendly application for vehicle detection using YOLOv8, featuring dataset exploration, model training, and real-time detection with a Streamlit interface.
 
-## Project Overview
+---
 
-This project implements a vehicle detection system using YOLOv8, one of the most advanced real-time object detection models. The system is designed to detect various types of vehicles including cars, buses, trucks, bicycles, and more from images and videos.
+## 🚗 Project Overview
 
-The application provides a user-friendly interface built with Streamlit that allows users to:
+This project implements a vehicle detection system using YOLOv8, one of the most advanced real-time object detection models. The system can detect various types of vehicles (cars, buses, trucks, bicycles, etc.) from images and videos. The Streamlit interface allows you to:
 - Explore and visualize the dataset
-- Learn about YOLOv8 architecture and theory
-- Train custom YOLOv8 models with different parameters
+- Learn about YOLOv8 architecture
+- Train custom YOLOv8 models
 - Track experiments with MLflow
-- Perform real-time vehicle detection on images and videos
+- Perform real-time vehicle detection
 
-## Dataset
+---
 
 The project uses the Indian Vehicle Dataset collected by DataCluster Labs, containing over 50,000 high-resolution images of vehicles captured across 1,000+ urban and rural areas in India. The dataset includes the following vehicle classes:
 - Auto
@@ -25,14 +25,21 @@ The project uses the Indian Vehicle Dataset collected by DataCluster Labs, conta
 - Two-wheelers
 - Trucks
 
-## Project Structure
+- **Default**: [Indian Vehicle Dataset](https://www.kaggle.com/datasets/dataclusterlabs/indian-vehicle-dataset) (>50,000 images, 8 classes: Auto, Bicycle, Bus, Car, Tempo, Tractor, Two-wheelers, Trucks)
+- **Custom**: You can use your own dataset in YOLO format.
+- **Note**: The original dataset is in `.xml` format. Use the provided script to convert to YOLO format (see below).
+
+---
+
+## 🗂️ Project Structure
 
 ```
-YOLOv8-Vehicle-Detection/
+Vehicle-Detection-YOLOv8/
 ├── app.py                  # Main Streamlit application
 ├── requirements.txt        # Project dependencies
 ├── LICENSE                 # MIT License
 ├── README.md               # Project documentation
+├── packages.txt            # Additional package list (if needed)
 ├── src/                    # Source code
 │   ├── data_t.py           # Dataset exploration module
 │   ├── theory_t.py         # YOLOv8 theory module
@@ -40,7 +47,7 @@ YOLOv8-Vehicle-Detection/
 │   ├── demo_t.py           # Detection demo module
 │   └── mlflow_t.py         # MLflow tracking module
 ├── utils/                  # Utility scripts
-│   └── convert_to_xml.py   # Dataset conversion utility
+│   └── convert_to_yaml.py  # Dataset conversion utility
 ├── models/                 # Pre-trained models
 │   ├── yolov8n.pt
 │   ├── yolov8s.pt
@@ -50,120 +57,120 @@ YOLOv8-Vehicle-Detection/
 │   ├── train/              # Training data
 │   ├── val/                # Validation data
 │   └── test/               # Test data
+├── runs/                   # YOLOv8 training runs/outputs
+├── mlruns/                 # MLflow experiment tracking
+└── .gitignore              # Git ignore file
 ```
 
-## Features
+---
 
-1. **Data Exploration**
-   - Dataset statistics and visualization
-   - Class distribution analysis
-   - Sample image viewing with annotations
+## ✨ Features
 
-2. **YOLOv8 Theory**
-   - Explanation of YOLOv8 architecture
-   <!-- - Comparison with previous YOLO versions
-   - Object detection concepts -->
+- **Data Exploration**: Statistics, class distribution, sample images with annotations
+- **YOLOv8 Theory**: Learn about the model architecture
+- **Model Training**: Custom training, real-time progress, MLflow experiment tracking
+- **Vehicle Detection**: Real-time detection on images/videos, adjustable confidence, result visualization
+- **MLflow Integration**: Track and compare experiments, log parameters/metrics, model versioning
 
-3. **Model Training**
-   - Custom training with configurable parameters
-   - Support for different YOLOv8 model sizes (nano, small, medium)
-   - Real-time training progress visualization
-   - Experiment tracking with MLflow
+---
 
-4. **Vehicle Detection**
-   - Real-time detection on images and videos
-   - Adjustable confidence threshold
-   - Detection results visualization
-   - Detailed detection statistics
+## ⚡ Quickstart
 
-5. **MLflow Integration**
-   - Experiment tracking and comparison
-   - Parameter and metric logging
-   - Model versioning
-   - Performance visualization
+### 1. Prerequisites
+- Python 3.8+
+- (Recommended) CUDA-compatible GPU for training
 
-## Installation
+### 2. Installation
 
-### Prerequisites
-- Python 3.8 or higher
-- CUDA-compatible GPU (recommended for training)
+```bash
+# Clone the repository
+$ git clone https://github.com/lbnm203/Vehicle-Detection-YOLOv8.git
+$ cd Vehicle-Detection-YOLOv8
 
-### Setup
+# (Optional) Create a virtual environment
+$ python -m venv venv
+# On Windows:
+$ venv\Scripts\activate
+# On macOS/Linux:
+$ source venv/bin/activate
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/lbnm203/YOLOv8-Vehicle-Detection.git
-   cd YOLOv8-Vehicle-Detection
-   ```
+# Install dependencies
+$ pip install -r requirements.txt
+```
 
-2. Create and activate a virtual environment (optional but recommended):
-   ```bash
-   python -m venv venv
-   
-   # On Windows
-   venv\Scripts\activate
-   
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
+### 3. Download Pre-trained Models (Optional)
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+# Create models directory if not exists
+$ mkdir -p models
 
-4. Download pre-trained YOLOv8 models:
-   ```bash
-   mkdir -p models
-   
-   # Download YOLOv8 nano
-   wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt -P models/
-   
-   # Download YOLOv8 small (optional)
-   wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8s.pt -P models/
-   
-   # Download YOLOv8 medium (optional)
-   wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8m.pt -P models/
-   ```
+# Download YOLOv8 nano
+$ wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt -P models/
+# Download YOLOv8 small (optional)
+$ wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8s.pt -P models/
+# Download YOLOv8 medium (optional)
+$ wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8m.pt -P models/
+```
+*Windows users*: If you do not have `wget`, please download the files manually and place them in the `models/` directory.
 
-5. Prepare the dataset:
-   - Download the Indian Vehicle Dataset (https://www.kaggle.com/datasets/dataclusterlabs/indian-vehicle-dataset) or use your own dataset
-   - Caution: The original format of this dataset is .xml, so run the `utils/convert_to_yaml.py` to convert it to .yaml format.
-   - Organize it in the YOLOv8 format
-   - Update the `yolov8_dataset/custom_dataset.yaml` file with your dataset paths
+### 4. Prepare the Dataset
+- Download the [Indian Vehicle Dataset](https://www.kaggle.com/datasets/dataclusterlabs/indian-vehicle-dataset) or use your own dataset.
+- If your dataset is in `.xml` format, run the conversion script:
+  ```bash
+  python utils/convert_to_xml.py
+  ```
+- Make sure your data follows the YOLOv8 structure (see the `yolov8_dataset/` folder).
+- Update the paths in `yolov8_dataset/custom_dataset.yaml` if needed.
 
-## Usage
+---
 
-1. Start the Streamlit application:
-   ```bash
-   streamlit run app.py
-   ```
+## 🚀 Usage
 
-2. Access the application in your web browser at `http://localhost:8501`
+### 1. Run the Streamlit Application
+```bash
+streamlit run app.py
+```
+Then open [http://localhost:8501](http://localhost:8501) in your browser.
 
-3. Navigate through the tabs to explore the dataset, learn about YOLOv8, train models, and perform vehicle detection
+Or try the online demo: [https://vehicle-detection-yolov8.streamlit.app](https://vehicle-detection-yolov8.streamlit.app)
 
-## Training Your Own Model
+### 2. Main Features
+- Explore the dataset and view sample images
+- Learn about YOLOv8
+- Train your own model (optional)
+- Perform vehicle detection on images or videos
 
-1. Navigate to the "Training" tab in the application
-2. Select a base model (YOLOv8n, YOLOv8s, or YOLOv8m)
-3. Configure training parameters (epochs, batch size, learning rate, etc.)
-4. Click "Start Training" to begin the training process
+---
+
+## 🏋️‍♂️ Training Your Own Model
+
+> **Note:** If you want to enable training, uncomment the relevant lines in `app.py`.
+
+1. Go to the "Training" tab in the application
+2. Select a base model (YOLOv8n, YOLOv8s, YOLOv8m)
+3. Set training parameters (epochs, batch size, learning rate, etc.)
+4. Click "Start Training"
 5. Monitor training progress and results in real-time
 6. View and compare experiments in the MLflow tab
 
-## License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📄 License
 
-## Acknowledgments
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-- [Ultralytics](https://github.com/ultralytics/ultralytics) for the YOLOv8 implementation
-- [DataCluster Labs](https://www.datacluster.ai/) for the Indian Vehicle Dataset
-- [Streamlit](https://streamlit.io/) for the web application framework
-- [MLflow](https://mlflow.org/) for experiment tracking
+---
 
-## Author
+## 🙏 Acknowledgments
+
+- [Ultralytics](https://github.com/ultralytics/ultralytics) - YOLOv8 implementation
+- [DataCluster Labs](https://www.datacluster.ai/) - Indian Vehicle Dataset
+- [Streamlit](https://streamlit.io/) - Web application framework
+- [MLflow](https://mlflow.org/) - Experiment tracking
+
+---
+
+## 👤 Author
 
 Nhat Minh Le Ba
 
