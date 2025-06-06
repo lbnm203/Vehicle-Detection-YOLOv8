@@ -438,7 +438,7 @@ def demo_detection():
 
             # Display original image
             st.write("### Ảnh gốc")
-            st.image(image, caption="Ảnh đầu vào", use_column_width=True)
+            st.image(image, caption="Ảnh đầu vào", use_container_width=True)
 
             if st.button("Xử lý ảnh"):
                 # Process image
@@ -451,7 +451,7 @@ def demo_detection():
                     # Display output image
                     st.write("### Kết quả phát hiện")
                     st.image(output_image, caption="Kết quả",
-                             use_column_width=True)
+                             use_container_width=True)
 
                 # Display detection details
                 if results.boxes is not None and len(results.boxes) > 0:
@@ -531,7 +531,7 @@ def demo_detection():
 
                 # Display frame
                 video_placeholder.image(
-                    output_frame, caption="Frame preview", use_column_width=True)
+                    output_frame, caption="Frame preview", use_container_width=True)
 
             # Option to process full video
             if st.button("Xử lý toàn bộ video"):
@@ -576,11 +576,6 @@ def demo_detection():
                 # Release resources
                 cap.release()
                 out.release()
-
-                # Provide video preview after processing
-                st.write("### Processed Video Preview")
-                with open(output_path, 'rb') as video_file:
-                    st.video(video_file.read())
 
                 # Provide download link
                 with open(output_path, 'rb') as f:
