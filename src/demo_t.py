@@ -66,7 +66,19 @@ def draw_results(image, results, class_names):
 
 
 def demo_detection():
-    st.header("Demo Vehicle Detection")
+    with st.expander("Hướng dẫn sử dụng Demo"):
+        st.markdown("""
+        **Hướng dẫn sử dụng Demo:**
+        1. **Chọn mô hình:** Lựa chọn một mô hình YOLOv8 đã huấn luyện sẵn hoặc mô hình bạn đã huấn luyện.
+        2. **Thiết lập ngưỡng confidence:** Điều chỉnh thanh trượt để chọn ngưỡng confidence tối thiểu cho phát hiện.
+        3. **Chọn loại đầu vào:**
+            - *Tải ảnh lên*: Tải lên ảnh định dạng JPG, JPEG hoặc PNG để phát hiện phương tiện.
+            - *Tải video lên*: Tải lên video được mã hóa bằng H.264 hoặc MPEG-4 để phát hiện phương tiện. Không hỗ trợ video mã hóa AV1.
+        4. **Xử lý và xem kết quả:**
+            - Với ảnh: Nhấn nút để xử lý và xem kết quả phát hiện cùng chi tiết.
+            - Với video: Xem trước khung hình đầu tiên, sau đó nhấn nút để xử lý toàn bộ video và tải về kết quả.
+            
+        """)
 
     # Model selection
     st.write("### Chọn mô hình")
@@ -426,7 +438,7 @@ def demo_detection():
 
             # Display original image
             st.write("### Ảnh gốc")
-            st.image(image, caption="Ảnh đầu vào", use_container_width=True)
+            st.image(image, caption="Ảnh đầu vào", use_column_width=True)
 
             if st.button("Xử lý ảnh"):
                 # Process image
@@ -439,7 +451,7 @@ def demo_detection():
                     # Display output image
                     st.write("### Kết quả phát hiện")
                     st.image(output_image, caption="Kết quả",
-                             use_container_width=True)
+                             use_column_width=True)
 
                 # Display detection details
                 if results.boxes is not None and len(results.boxes) > 0:
@@ -474,6 +486,8 @@ def demo_detection():
         uploaded_file = st.file_uploader(
             "Chọn video", type=["mp4", "avi", "mov"])
 
+        st.info("For best compatibility, please upload videos encoded with H.264 (mp4) or MPEG-4. AV1 codec is not supported.")
+
         if uploaded_file is not None:
             # Save uploaded video to temp file
             temp_file = tempfile.NamedTemporaryFile(
@@ -483,6 +497,11 @@ def demo_detection():
 
             # Open video
             cap = cv2.VideoCapture(video_path)
+
+            if not cap.isOpened():
+                st.error(
+                    "Failed to open video file. Please ensure the video is encoded with H.264 (mp4) or MPEG-4.")
+                return
 
             # Get video info
             fps = int(cap.get(cv2.CAP_PROP_FPS))
@@ -512,7 +531,7 @@ def demo_detection():
 
                 # Display frame
                 video_placeholder.image(
-                    output_frame, caption="Frame preview", use_container_width=True)
+                    output_frame, caption="Frame preview", use_column_width=True)
 
             # Option to process full video
             if st.button("Xử lý toàn bộ video"):
@@ -558,6 +577,11 @@ def demo_detection():
                 cap.release()
                 out.release()
 
+                # Provide video preview after processing
+                st.write("### Processed Video Preview")
+                with open(output_path, 'rb') as video_file:
+                    st.video(video_file.read())
+
                 # Provide download link
                 with open(output_path, 'rb') as f:
                     st.download_button(
@@ -566,6 +590,8 @@ def demo_detection():
                         file_name="processed_video.mp4",
                         mime="video/mp4"
                     )
+                st.success(
+                    "Video has been processed successfully! You can now download the result.")
 
             # Clean up
             cap.release()
