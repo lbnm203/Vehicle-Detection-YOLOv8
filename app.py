@@ -2,7 +2,6 @@ import streamlit as st
 import os
 
 from src.data_t import *
-from src.theory_t import *
 from src.demo_t import *
 from src.mlflow_t import *
 
@@ -40,8 +39,8 @@ def check_dataset_availability():
 def main():
     st.title("YOLOv8 Vehicle Detection")
 
-    data_tab, theory_tab, demo_tab, mlflow_tab = st.tabs(
-        ["Data", "Theory", "Demo", "MLflow"]
+    data_tab, demo_tab, mlflow_tab = st.tabs(
+        ["Data", "Demo", "MLflow"]
     )
 
     with data_tab:
@@ -49,8 +48,8 @@ def main():
         check_dataset_availability()
         data_description()
 
-    with theory_tab:
-        yolov8_theory()
+    # with theory_tab:
+    #     yolov8_theory()
 
     # with train_tab:
     #     train_model()
